@@ -1,0 +1,93 @@
+﻿<Window
+    x:Class="PhotoAppWPF.TakePhotoView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:PhotoAppWPF.ViewModels"
+    Title="{Binding Title}"
+    Width="800"
+    Height="450"
+    MinWidth="350px"
+    MinHeight="350px"
+    Closing="ClosingWindow"
+    mc:Ignorable="d">
+
+    <Window.DataContext>
+        <vm:TakePhotoViewModel />
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="225px" />
+        </Grid.ColumnDefinitions>
+        <Image
+            Name="frameHolder"
+            Grid.Column="0"
+            Margin="10"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Source="{Binding CameraSource}"
+            Stretch="Uniform" />
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20px" />
+                <RowDefinition />
+                <RowDefinition Height="20px" />
+                <RowDefinition />
+                <RowDefinition Height="50px" />
+                <RowDefinition Height="50px" />
+                <RowDefinition Height="50px" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                HorizontalAlignment="Center"
+                FontWeight="Bold"
+                Text="Photo title:" />
+            <TextBox
+                Grid.Row="1"
+                Margin="10"
+                Cursor="IBeam"
+                Text="{Binding ImageTitle, UpdateSourceTrigger=PropertyChanged}"
+                TextWrapping="Wrap"
+                VerticalScrollBarVisibility="Auto" />
+            <TextBlock
+                Grid.Row="2"
+                HorizontalAlignment="Center"
+                FontWeight="Bold"
+                Text="Photo description:" />
+            <TextBox
+                Grid.Row="3"
+                Margin="10"
+                AcceptsReturn="True"
+                Cursor="IBeam"
+                Text="{Binding ImageDescription, UpdateSourceTrigger=PropertyChanged}"
+                TextWrapping="Wrap"
+                VerticalScrollBarVisibility="Auto" />
+            <Button
+                Grid.Row="4"
+                Margin="10"
+                Command="{Binding TakePhotoCommand}"
+                Content="TAKE PHOTO"
+                Cursor="Hand"
+                IsEnabled="{Binding CanTakePhoto}"
+                Visibility="{Binding IsTakePhotoVisible}" />
+            <Button
+                Grid.Row="5"
+                Margin="10"
+                Command="{Binding SavePhotoCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                Content="SAVE PHOTO"
+                Cursor="Hand"
+                IsEnabled="{Binding CanSavePhoto}" />
+            <Button
+                Grid.Row="6"
+                Margin="10"
+                Command="{Binding GoBackCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                Content="GO BACK"
+                Cursor="Hand" />
+        </Grid>
+    </Grid>
+</Window>

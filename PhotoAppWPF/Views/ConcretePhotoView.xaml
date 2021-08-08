@@ -1,0 +1,96 @@
+﻿<Window
+    x:Class="PhotoAppWPF.Views.ConcretePhotoView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:PhotoAppWPF.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:PhotoAppWPF.ViewModels"
+    Title="{Binding Title}"
+    Width="800"
+    Height="450"
+    MinWidth="300px"
+    MinHeight="300px"
+    Cursor="Hand"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <vm:ConcretePhotoViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="225px" />
+        </Grid.ColumnDefinitions>
+        <Image
+            Name="frameHolder"
+            Grid.Column="0"
+            Margin="10"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Source="{Binding PhotoData.ImgSource}"
+            Stretch="Uniform" />
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20px" />
+                <RowDefinition Height="60px" />
+                <RowDefinition Height="20px" />
+                <RowDefinition />
+                <RowDefinition Height="20px" />
+                <RowDefinition Height="60px" />
+                <RowDefinition Height="50px" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                HorizontalAlignment="Center"
+                FontWeight="Bold"
+                Text="Photo title:" />
+            <TextBox
+                Grid.Row="1"
+                Margin="10"
+                HorizontalAlignment="Center"
+                Cursor="IBeam"
+                IsReadOnly="True"
+                Text="{Binding PhotoData.Title}"
+                TextWrapping="Wrap"
+                VerticalScrollBarVisibility="Auto" />
+            <TextBlock
+                Grid.Row="2"
+                HorizontalAlignment="Center"
+                FontWeight="Bold"
+                Text="Photo description:" />
+            <TextBox
+                Grid.Row="3"
+                Margin="10"
+                HorizontalAlignment="Center"
+                AcceptsReturn="True"
+                Cursor="IBeam"
+                IsReadOnly="True"
+                Text="{Binding PhotoData.Description}"
+                TextWrapping="Wrap"
+                VerticalScrollBarVisibility="Auto" />
+            <TextBlock
+                Grid.Row="4"
+                HorizontalAlignment="Center"
+                FontWeight="Bold"
+                Text="Date and time creation:" />
+            <TextBox
+                Grid.Row="5"
+                Margin="10"
+                HorizontalAlignment="Center"
+                AcceptsReturn="True"
+                Cursor="IBeam"
+                Foreground="Black"
+                IsReadOnly="True"
+                Text="{Binding PhotoData.CreationDateTime}"
+                TextWrapping="Wrap"
+                VerticalScrollBarVisibility="Auto" />
+            <Button
+                Grid.Row="6"
+                Margin="10"
+                Command="{Binding GoBackCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                Content="CLOSE"
+                Cursor="Hand" />
+        </Grid>
+    </Grid>
+</Window>
